@@ -4,7 +4,7 @@ var User = require('../models/User');
 var Course = require('../models/Viewport');
 
 exports.getSignUp = function(req,res){
-        res.render('signup');
+        res.render('signup',{title:signup});
     }
 
 exports.postSignUp = function(req,res){
@@ -61,5 +61,5 @@ exports.getSignOut = function(req,res, next){
 
 exports.getDashboard = function(req,res,next){
 
-  res.render('dashboard');
+  res.render('dashboard',{title:Dashboard});
 }
