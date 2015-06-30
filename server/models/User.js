@@ -7,6 +7,11 @@ var userSchema = new mongoose.Schema({
   password: String,
   facebook: String,
   google: String,
+  origin: {city: String, state: String},
+  destination: {city: String, state: String},
+  price: Array,
+  time: Date,
+  phone_no: String,
   tokens: Array,
   type: String,
   profile: {

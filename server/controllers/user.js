@@ -1,7 +1,7 @@
 var passport = require('passport');
 
 var User = require('../models/User');
-var Course = require('../models/Course');
+var Course = require('../models/Viewport');
 
 exports.getSignUp = function(req,res){
         res.render('signup');

@@ -12,17 +12,12 @@ var facebook={
 }
 
 // New google stratery implemented
-passport.use(new GoogleStrategy({
+var google ={
     clientID: '435540982380-7ptbucrqp4chmif608l6vqs0ol4v2gtg.apps.googleusercontent.com',
     clientSecret: 'WlPvnWMlec8gE5X0T0TVRQ6I',
     callbackURL: "http://127.0.0.1:3000/auth/google/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
   }
-));
+  
 
 
 //When passport is created, this says what as to be stored with regards to the user
@@ -101,6 +96,53 @@ passport.use(new FacebookStrategy(facebook, function(req, accessToken, refreshTo
     });
   }
 }));
+
+//** Implemented google login..Check with Ui **//
+passport.use(new GoogleStrategy(google, function(req, accessToken, refreshToken, profile, done) {
+  if (req.user) {
+    User.findOne({ google: profile.id }, function(err, existingUser) {
+      if (existingUser) {
+        console.log('There is already a Google+ account that belongs to you. Sign in with that account or delete it, then link it with your current account.' );
+        done(err);
+      } else {
+        User.findById(req.user.id, function(err, user) {
+          user.google = profile.id;
+          user.tokens.push({ kind: 'google', accessToken: accessToken });
+          user.profile.displayName = user.profile.displayName || profile.displayName;
+          user.profile.gender = user.profile.gender || profile._json.gender;
+            //user.profile.picture = user.profile.picture || 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
+          user.save(function(err) {
+            console.log('Google account has been linked.');
+            done(err, user);
+          });
+        });
+      }
+    });
+  } else {
+    User.findOne({ google: profile.id }, function(err, existingUser) {
+      if (existingUser) return done(null, existingUser);
+      User.findOne({ email: profile._json.email }, function(err, existingEmailUser) {
+        if (existingEmailUser) {
+           console.log('There is already an account using this email address. Sign in to that account and link it with Google manually from Account Settings.' );
+          done(err);
+        } else {
+          var user = new User();
+          user.email = profile._json.email;
+          user.google = profile.id;
+          user.tokens.push({ kind: 'google', accessToken: accessToken });
+          user.profile.displayName = profile.displayName;
+          user.profile.gender = profile._json.gender;
+            //user.profile.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';
+          user.profile.location = (profile._json.location) ? profile._json.location.name : '';
+          user.save(function(err) {
+            done(err, user);
+          });
+        }
+      });
+    });
+  }
+}));
+
 
 /**
  * Login Required middleware.
