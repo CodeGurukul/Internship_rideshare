@@ -1,0 +1,14 @@
+{
+  "name": "Codegurukul_practice",
+  "version": "0.0.0",
+  "homepage": "https://github.com/stanlysamuel/Codegurukul_practice",
+  "authors": [
+    "Stanly Samuel"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5",
+    "toastr": "~2.1.1"
+  }
+}
