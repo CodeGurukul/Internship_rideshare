@@ -1,26 +1,26 @@
 {
-  "name": "Codegurukul_practice",
+  "name": "Rideshare",
   "version": "0.0.1",
-  "description": "This is my first web application",
+  "description": "This is the ridesharing application",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/stanlysamuel/Codegurukul_practice.git"
+    "url": "https://github.com/CodeGurukul/Internship_rideshare.git"
   },
   "keywords": [
     "Education",
     "Web",
     "Design"
   ],
-  "author": "Stanly Samuel",
+  "author": "Prathamesh Prabhu",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/stanlysamuel/Codegurukul_practice/issues"
+    "url": "https://github.com/CodeGurukul/Internship_rideshare/issues"
   },
-  "homepage": "https://github.com/stanlysamuel/Codegurukul_practice",
+  "homepage": "https://github.com/CodeGurukul/Internship_rideshare",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.13.1",

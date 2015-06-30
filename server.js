@@ -2,7 +2,9 @@ var express = require('express');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 var MongoStore = require('connect-mongo')(session);
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var app =express();
 
@@ -17,6 +19,17 @@ app.use(session({
   store: new MongoStore({ url: 'mongodb://localhost/rideshare', autoReconnect: true })
 }));
 
+app.get('/auth/google',
+  passport.authenticate('google', { 
+  	scope: 'https://www.googleapis.com/auth/plus.login'
+  	 }));
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect Ride share home.
+    res.redirect('/');
+  });
 
 app.use(express.static('public')); 
 app.use(bodyParser.json());
