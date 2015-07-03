@@ -1,6 +1,6 @@
 html
   body
-    form(method='post', target='_blank', onsubmit='return window.confirm("You are submitting information to an external page.\nAre you sure?");')
+    form(action='/passenger' method='post')
       div
         h2 RIDESHARE
         p EARN MONEY WITH YOUR CAR
@@ -8,11 +8,11 @@ html
         li
           label Passenger 
           div
-            input(name='element_1', type='text', maxlength='255', value='')
+            input(type='text', maxlength='255', value='',name="uname")
         li
           label Contact 
           div
-            input(name='element_3', type='text', maxlength='255', value='')
+            input(type='text', maxlength='255', value='',name="contact")
         li
           label Date of joining 
           span
@@ -26,8 +26,6 @@ html
           span
             input(name='element_4_3', size='4', maxlength='4', value='', type='text')
             label YYYY
-          span
-            img(src='http://calendar.gif', alt='Pick a date.')
         li
           label Car name 
           div
@@ -53,11 +51,11 @@ html
         li
           label Pickup location 
           div
-            textarea(name='element_7')
+            textarea(name='pickup')
         li
           label Drop off location 
           div
-            textarea(name='element_8')
+            textarea(name='drop')
         li
           input(type='hidden', name='form_id', value='1028665')
           input(type='submit', name='submit', value='Submit')

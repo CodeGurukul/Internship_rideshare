@@ -79,6 +79,34 @@ app.get('/driver',function(req,res){
 app.get('/passenger',function(req,res){
         res.render('passenger');
     });
+app.post('/passenger',function(req,res){
+        var user = new User({profile:{name:req.body.uname},
+    	type:"passenger",
+    	phone_no:req.body.contact,
+    	origin:{city:req.body.pick},
+    	destination:{city:req.body.drop}
+      //  email:req.body.email,
+    //    password:req.body.password
+    })
+        user.save();
+        res.redirect('/');
+    });     
+
+app.post('/driver',function(req,res){
+        var user = new User({profile:{name:req.body.uname},
+    	type:"driver",
+    	phone_no:req.body.contact,
+    	origin:{city:req.body.pick},
+    	destination:{city:req.body.drop}
+      //  email:req.body.email,
+    //    password:req.body.password
+    })
+            user.save();
+            console.log("heyyyy")
+  			res.redirect('/');
+        
+    });
+
 //Mongoose Connection with MongoDB
 mongoose.connect('mongodb://localhost/rideshare');
 console.log('local mongodb opened');
