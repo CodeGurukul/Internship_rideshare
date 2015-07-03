@@ -1,0 +1,16 @@
+extends ./includes/layout
+block main
+  .container-fluid.cover-bg
+    .row
+      .col-md-4.col-md-offset-4.text-center#index
+        a.btn.btn-primary(href='/driver') 
+          .login-icon
+            i.fa.fa-desktop 
+              |&nbspLogin for driver
+        br
+        a.btn.btn-danger(href='/passenger') 
+          .login-icon
+            i.fa.fa-desktop 
+              |&nbspLogin for passener
+
+    

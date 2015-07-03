@@ -14,8 +14,8 @@ var facebook={
 // New google stratery implemented
 var google ={
     clientID: '435540982380-7ptbucrqp4chmif608l6vqs0ol4v2gtg.apps.googleusercontent.com',
-    clientSecret: 'WlPvnWMlec8gE5X0T0TVRQ6I',
-    callbackURL: "http://127.0.0.1:3000/auth/google/callback"
+    clientSecret: 'w7TXlGvTi9ddWgBM-3oHezcu',
+    callbackURL: "/auth/google/callback"
   }
   
 

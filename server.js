@@ -16,10 +16,30 @@ var passportConf = require('./server/config/passport')
 //Require Controllers
 var userController = require('./server/controllers/user');
 var viewportController = require('./server/controllers/viewport');
-var homeController = require('./server/controllers/home');
+//var homeController = require('./server/controllers/home');
 
 app.set('views', __dirname + '/server/views');
 app.set('view engine','jade');
+
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: 'Codegurukul',
+  store: new MongoStore({ url: 'mongodb://localhost/rideshare', autoReconnect: true })
+}));
+
+app.use(express.static('public')); 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(function(req, res, next) {
+  res.locals.user = req.user;
+  next();
+});
+
 
 
 app.get('/', viewportController.getIndex);
@@ -32,12 +52,13 @@ app.post('/signup', userController.postSignUp);
 app.post('/signin', userController.postSignIn);
 app.get('/signout', userController.getSignOut);
 //app.use is used to use middlewares
-app.use(session({
-  resave: true,
-  saveUninitialized: true,
-  secret: 'Codegurukul',
-  store: new MongoStore({ url: 'mongodb://localhost/rideshare', autoReconnect: true })
-}));
+
+//facebook authentication
+app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'user_location'] }));
+app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/' }), function(req, res) {
+  res.redirect(req.session.returnTo || '/');
+});
+
 
 // integrted google login--check
 app.get('/auth/google',
@@ -52,24 +73,12 @@ app.get('/auth/google/callback',
     res.redirect('/');
   });
 
-app.use(express.static('public')); 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
-
-
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(function(req, res, next) {
-  res.locals.user = req.user;
-  next();
-});
-
-//facebook authentication
-app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email', 'user_location'] }));
-app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/' }), function(req, res) {
-  res.redirect(req.session.returnTo || '/');
-});
-
+app.get('/driver',function(req,res){
+        res.render('driver');
+    });
+app.get('/passenger',function(req,res){
+        res.render('passenger');
+    });
 //Mongoose Connection with MongoDB
 mongoose.connect('mongodb://localhost/rideshare');
 console.log('local mongodb opened');
