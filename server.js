@@ -103,8 +103,27 @@ app.post('/driver',function(req,res){
     })
             user.save();
             console.log("heyyyy")
-  			res.redirect('/');
+  			res.redirect('/select');
         
+    });
+
+app.get('/select',function(req,res){
+	// User.find(function(err,type){
+ //            res.render('select',{type:type});
+ //        });
+	if (req.user){
+		console.log("U are inside")
+    if(req.user.type="passenger")
+    {
+      res.render('select');
+    }
+    else{
+        res.send("You ar not admin");
+    }
+}
+   console.log("u are outside")
+   console.log(req.body.uname)
+   console.log()     
     });
 
 //Mongoose Connection with MongoDB
