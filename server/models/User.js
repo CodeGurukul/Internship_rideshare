@@ -12,6 +12,7 @@ var userSchema = new mongoose.Schema({
   price: Array,
   time: Date,
   phone_no: String,
+  accepted:String,
   tokens: Array,
   type: String,
   profile: {

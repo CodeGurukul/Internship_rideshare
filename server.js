@@ -108,22 +108,61 @@ app.post('/driver',function(req,res){
     });
 
 app.get('/select',function(req,res){
-	// User.find(function(err,type){
- //            res.render('select',{type:type});
- //        });
-	if (req.user){
-		console.log("U are inside")
-    if(req.user.type="passenger")
-    {
-      res.render('select');
-    }
-    else{
-        res.send("You ar not admin");
-    }
-}
-   console.log("u are outside")
-   console.log(req.body.uname)
-   console.log()     
+	 User.find(function(err,value){
+            res.render('select',{user:value});
+          //for (var i=0;i>=0;i++)
+          //  console.log(value[i].type)
+
+
+        })
+// 	if (req.user){
+// 		console.log("U are inside")
+//     if(req.user.type="passenger")
+//     {
+//       res.render('select');
+//     }
+//     else{
+//         res.send("You ar not admin");
+//     }
+// }
+//    console.log("u are outside")
+//    console.log(req.body.uname)
+//    console.log()     
+ });
+
+
+//To be done 
+app.post('/postData',function(req,res){
+    var index =req.user.eventsCreated.indexOf(req.params.id)
+    console.log(index);
+            if(index!=-1)
+             {       
+                console.log(index);
+                User.find({email:req.body.eventInvite},function(err,user){
+                    if(user[0])
+                    {
+                        User.findByIdAndUpdate(user[0]._id,{$push: {"invites": req.params.id}},
+                        function(err, model)
+                         {
+                            res.redirect('/view-event');
+                        });
+                    }
+                    else
+                    {
+                        console.log('User not found');
+                        res.redirect('/view-event');
+                    }
+
+
+
+                });
+            }
+            else
+            {
+                console.log("Not Authorized to Invite");
+                res.redirect('/view-event');
+            }
+
     });
 
 //Mongoose Connection with MongoDB
