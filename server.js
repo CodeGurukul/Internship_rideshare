@@ -41,8 +41,9 @@ app.use(function(req, res, next) {
 });
 
 var drivers = [];
+var passengers=[];
 
-var passengers = [{name: 'Pratham'}, {name: 'Prabhu'}];
+//var passengers = [{name: 'Pratham'}, {name: 'Prabhu'}];
 
 
 app.get('/', viewportController.getIndex);
@@ -98,6 +99,9 @@ app.post('/passenger',function(req,res){
     //    password:req.body.password
     })
          user.save();
+         passengers.push(user)
+         console.log(passengers)
+
         res.render('output', {passengers: passengers});
     });   
 
