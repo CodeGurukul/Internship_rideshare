@@ -2,7 +2,5 @@ html
 	body
 		h1 Passengers List
 			ul
-				each p in passengers
-					input(type="checkbox" value="{p.name}")
-						li {p.name}
-	
+				each passenger in passengers
+					li=passenger.name

@@ -84,7 +84,9 @@ app.get('/passenger',function(req,res){
     });
 app.get('/output',function(req,res){
         res.render('output');
-        console.log(passengers)
+        console.log(passengers);
+        console.log(data);
+        console.log(user);
     });
 app.post('/passenger',function(req,res){
         var user = new User({profile:{name:req.body.uname},
@@ -96,7 +98,7 @@ app.post('/passenger',function(req,res){
     //    password:req.body.password
     })
          user.save();
-        res.redirect('output');
+        res.render('output', {passengers: passengers});
     });   
 
 app.post('/driver', function(req, res) {
