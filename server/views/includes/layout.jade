@@ -11,6 +11,31 @@ html(lang='en')
   body
     include ../partials/header
     block main
+    script.
+      document.addEventListener('DOMContentLoaded', function(e) {
+      var btnNext = document.getElementById('btnNext');
+      btnNext.onclick = function(e) {
+      var allPassengers = document.querySelectorAll('input[type=checkbox]');
+      var selectedPassengers = [].filter.call(allPassengers, function(p) {
+      return p.checked;
+      });
+      var passengerNames = [].map.call(selectedPassengers, function(p) {
+      return p.value;
+      });
+      var driverName = document.getElementById('driverName').innerHTML;
+      var r = new XMLHttpRequest();
+      r.open('POST', '/api/passengers');
+      r.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+      r.onreadystatechange = function() {
+      if (r.readyState != 4 || r.status != 200) return;
+      document.getElementById('app').innerHTML = r.responseText;
+      };
+      r.send(JSON.stringify({
+      passengerNames: passengerNames,
+      driverName: driverName
+      }));
+      };
+      });
     include ../partials/footer
     script(type="text/javascript", src="/vendor/jquery/dist/jquery.js")
     script(type="text/javascript", src="/vendor/bootstrap/dist/js/bootstrap.js")

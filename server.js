@@ -40,6 +40,9 @@ app.use(function(req, res, next) {
   next();
 });
 
+var drivers = [];
+
+var passengers = [{name: 'Pratham'}, {name: 'Prabhu'}];
 
 
 app.get('/', viewportController.getIndex);
@@ -64,20 +67,24 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRe
 app.get('/auth/google',
   passport.authenticate('google', { 
   	scope: 'https://www.googleapis.com/auth/plus.login'
-  	 }));
+}));
 
 app.get('/auth/google/callback', 
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect Ride share home.
     res.redirect('/');
-  });
+});
 
 app.get('/driver',function(req,res){
         res.render('driver');
     });
 app.get('/passenger',function(req,res){
         res.render('passenger');
+    });
+app.get('/output',function(req,res){
+        res.render('output');
+        console.log(passengers)
     });
 app.post('/passenger',function(req,res){
         var user = new User({profile:{name:req.body.uname},
@@ -88,82 +95,131 @@ app.post('/passenger',function(req,res){
       //  email:req.body.email,
     //    password:req.body.password
     })
-        user.save();
-        res.redirect('/');
-    });     
+         user.save();
+        res.redirect('output');
+    });   
 
-app.post('/driver',function(req,res){
-        var user = new User({profile:{name:req.body.uname},
-    	type:"driver",
-    	phone_no:req.body.contact,
-    	origin:{city:req.body.pick},
-    	destination:{city:req.body.drop}
-      //  email:req.body.email,
-    //    password:req.body.password
-    })
-            user.save();
-            console.log("heyyyy")
-  			res.redirect('/select');
+app.post('/driver', function(req, res) {
+  var driver = {
+    name: req.body.uname,
+    email:req.body.email
+  };
+
+  drivers.push(driver);
+
+  var data = {
+    driver: driver,
+    passengers: passengers
+  };
+
+  res.render('passenger', data);
+});
+
+app.get('/result', function(req, res) {
+  var data = {
+    driverName: '',
+    passengerNames: []
+  };
+
+  data.driverName = req.query.driverName;
+  data.passengerNames = data.passengerNames.concat(req.query.passengerNames);
+
+  res.render('result', data);
+});
+
+app.post('/api/passengers', function(req, res) {
+  var data = {
+    passengerNames: req.body.passengerNames,
+    driverName: req.body.driverName
+  };
+
+  var qs = querystring.stringify(data);
+  res.redirect('/result?' + qs);
+});
+
+
+// app.post('/driver',function(req,res){
+//         var user = new User({profile:{name:req.body.uname},
+//     	type:"driver",
+//     	phone_no:req.body.contact,
+//     	origin:{city:req.body.pick},
+//     	destination:{city:req.body.drop}
+//       //  email:req.body.email,
+//     //    password:req.body.password
+//     })
+//             user.save();
+//             console.log("heyyyy")
+//   			res.redirect('/select');
         
-    });
+//     });
 
-app.get('/select',function(req,res){
-	 User.find(function(err,value){
-            res.render('select',{user:value});
-          //for (var i=0;i>=0;i++)
-          //  console.log(value[i].type)
+// // getting issues with connecting for dashboard
+//  drivers.push(driver);
 
+//   var data = {
+//     driver: driver,
+//     passengers: passengers
+//   };
 
-        })
-// 	if (req.user){
-// 		console.log("U are inside")
-//     if(req.user.type="passenger")
-//     {
-//       res.render('select');
-//     }
-//     else{
-//         res.send("You ar not admin");
-//     }
-// }
-//    console.log("u are outside")
-//    console.log(req.body.uname)
-//    console.log()     
- });
+//   res.render('passengers', data);
+// });
 
+app.get('/result', function(req, res) {
+  var data = {
+    driverName: '',
+    passengerNames: []
+  };
 
-//To be done 
-app.post('/postData',function(req,res){
-    var index =req.user.eventsCreated.indexOf(req.params.id)
-    console.log(index);
-            if(index!=-1)
-             {       
-                console.log(index);
-                User.find({email:req.body.eventInvite},function(err,user){
-                    if(user[0])
-                    {
-                        User.findByIdAndUpdate(user[0]._id,{$push: {"invites": req.params.id}},
-                        function(err, model)
-                         {
-                            res.redirect('/view-event');
-                        });
-                    }
-                    else
-                    {
-                        console.log('User not found');
-                        res.redirect('/view-event');
-                    }
+  data.driverName = req.query.driverName;
+  data.passengerNames = data.passengerNames.concat(req.query.passengerNames);
+
+  res.render('result', data);
+});
+
+app.post('/api/passengers', function(req, res) {
+  var data = {
+    passengerNames: req.body.passengerNames,
+    driverName: req.body.driverName
+  };
+
+  var qs = querystring.stringify(data);
+  res.redirect('/result?' + qs);
+});
 
 
+//To be done .. edit to connect two users
+//app.post('/postData',function(req,res){
+    // var index =req.user.eventsCreated.indexOf(req.params.id)
+    // console.log(index);
+    //         if(index!=-1)
+    //          {       
+    //             console.log(index);
+    //             User.find({email:req.body.eventInvite},function(err,user){
+    //                 if(user[0])
+    //                 {
+    //                     User.findByIdAndUpdate(user[0]._id,{$push: {"invites": req.params.id}},
+    //                     function(err, model)
+    //                      {
+    //                         res.redirect('/view-event');
+    //                     });
+    //                 }
+    //                 else
+    //                 {
+    //                     console.log('User not found');
+    //                     res.redirect('/view-event');
+    //                 }
 
-                });
-            }
-            else
-            {
-                console.log("Not Authorized to Invite");
-                res.redirect('/view-event');
-            }
 
-    });
+
+    //             });
+    //         }
+    //         else
+    //         {
+    //             console.log("Not Authorized to Invite");
+    //             res.redirect('/view-event');
+    //         }
+
+    // });
 
 //Mongoose Connection with MongoDB
 mongoose.connect('mongodb://localhost/rideshare');
