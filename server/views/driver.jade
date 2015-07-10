@@ -1,6 +1,7 @@
 html
   body
     h1  Driver 
+      p EARN MONEY WITH YOUR CAR
     form(method='POST', action='/driver')
       label Name:
       input#name(name='uname', type='text')
@@ -8,5 +9,52 @@ html
       label email:
       input#age(name='email', type='text')
       br
+      li
+          label Date of joining 
+          span
+            input(name='element_4_1', size='2', maxlength='2', value='', type='text')
+            |  /
+            label MM
+          span
+            input(name='element_4_2', size='2', maxlength='2', value='', type='text')
+            |  /
+            label DD
+          span
+            input(name='element_4_3', size='4', maxlength='4', value='', type='text')
+            label YYYY
+      li
+          label Car name 
+          div
+            input(name='element_5', type='text', maxlength='255', value='')
+      li
+          label Time 
+          span
+            input(name='element_6_1', size='2', type='text', maxlength='2', value='')
+            |  : 
+            label HH
+          span
+            input(name='element_6_2', size='2', type='text', maxlength='2', value='')
+            |  : 
+            label MM
+          span
+            input(name='element_6_3', size='2', type='text', maxlength='2', value='')
+            label SS
+          span
+            select(style='width:4em', name='element_6_4')
+              option(value='AM') AM
+              
+              option(value='PM') PM
+            label AM/PM
+      li
+              label Pickup location 
+              div
+              textarea(name='pick')
+      li
+              label Drop off location 
+              div
+              textarea(name='drop')
+            
+                     
+
       br
       input(type='submit', value='Submit')

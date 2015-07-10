@@ -1,12 +1,57 @@
 html
   body
-    h1  passenger 
+    h1  Passenger 
+    p CARPOOLING IS NOW SAFER AND MORE CONVIENIENT
     form(method='POST', action='/passenger')
       label Name:
       input#name(name='uname', type='text')
       br
       label contact:
       input#age(name='contact', type='text')
+      li
+          label Time 
+          span
+            input(name='element_6_1', size='2', type='text', maxlength='2', value='')
+            |  : 
+            label HH
+          span
+            input(name='element_6_2', size='2', type='text', maxlength='2', value='')
+            |  : 
+            label MM
+          span
+            input(name='element_6_3', size='2', type='text', maxlength='2', value='')
+            label SS
+          span
+            select(style='width:4em', name='element_6_4')
+              option(value='AM') AM
+               option(value='PM') PM
+            label AM/PM
+                     
+
+      li
+              label Start location 
+              div
+              textarea(name='Start')
+      li
+              label Destination 
+              div
+              textarea(name='Dest')
+            
+             
+
       br
+      label Music
+      input(type='radio', name='music', value='Western')
+      | Western
+      br
+      input(type='radio', name='music', value='Rock')
+      | Rock
+      br
+      input(type='radio', name='music', value='Hindi')
+      | Blues
+      br
+      input(type='radio', name='music', value='Hindi')
+      | Pop
       br
       input(type='submit', value='Submit')
+

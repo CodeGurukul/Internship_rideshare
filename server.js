@@ -77,6 +77,9 @@ app.get('/auth/google/callback',
     res.redirect('/');
 });
 
+app.get('/checkbox',function(req,res){
+        res.render('checkbox');
+    });
 app.get('/driver',function(req,res){
         res.render('driver');
     });
