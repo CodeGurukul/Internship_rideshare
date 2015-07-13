@@ -86,6 +86,9 @@ app.get('/driver',function(req,res){
 app.get('/passenger',function(req,res){
         res.render('passenger');
     });
+app.get('/intro',function(req,res){
+        res.render('Intro');
+    });
 app.get('/output',function(req,res){
         res.render('output');
         console.log(passengers);
@@ -102,10 +105,11 @@ app.post('/passenger',function(req,res){
     //    password:req.body.password
     })
          user.save();
-         passengers.push(user)
-         console.log(passengers)
+       //  passengers.push(user)
+       //  console.log(passengers)
 
-        res.render('output', {passengers: passengers});
+       // res.render('checkbox', {passengers: passengers});
+        res.redirect('/checkbox')
     });   
 
 app.post('/driver', function(req, res) {

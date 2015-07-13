@@ -1,0 +1,91 @@
+
+head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title My First Project
+    link(href='/vendor/bootstrap/dist/css/bootstrap.min.css', rel='stylesheet')
+    link(href="/favicon.png", rel="shortcut icon", type="image/x-icon")
+    link(href="/vendor/toastr/toastr.min.css" rel="stylesheet")  
+    link(href="/css/main.css" rel="stylesheet")
+  |   
+body
+    nav.navbar.navbar-default
+      .container-fluid
+        // Brand and toggle get grouped for better mobile display
+        .navbar-header
+          button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#bs-example-navbar-collapse-1', aria-expanded='false')
+            span.sr-only Toggle navigation
+            |             
+            span.icon-bar
+            |             
+            span.icon-bar
+            |             
+            span.icon-bar
+          |           
+          a.navbar-brand(href='#') RIDESHARE
+      |         
+      |     
+      |     
+      #intro.container-fluid
+        .row
+          .col-md-6.text-center
+            .my-box
+              h1 GET THERE TOGETHER
+              | .
+              |             
+              h2
+                | Shared car seats means a faster, greener and more affordable commute.
+                br
+                | Scroll down to know more
+      |     
+      h1
+        | This carpooling website enables you to find nearby people going your way so you can share your commute. By logging your trips, you can share the costs of the journey and reduce traffic and emissions in your community
+      |         
+      #ki.Container-fluid
+        .row
+          .col-md-3
+            .Content
+              h1 Social
+              |             
+              p.text-center Make friends and transform a dull ride into an unforgettable journey.
+          |         
+          .col-md-3
+            .Content
+              h1 Green
+              |             
+              p.text-center
+                | Share a ride, support the environment: Reduce gas, pollution and cars on the road.
+          |         
+          .col-md-3
+            .Content
+              h1 Secure
+              |             
+              p.text-center
+                | Know who you carpool with before your trip starts through user ratings, Facebook profiles, mobile &amp; email verification.
+          |         
+          .col-md-3
+            .Content
+              h1 Convenient
+              |             
+              p.text-center
+                | Find, sort and filter potential travel companions and arrange your carpool in seconds with no effort and no wasted time!.
+      |       
+      |     
+      #data.container-fluid
+        .row
+          .col-md-4.col-md-offset-4.text-center
+            .driver
+              h1 Hi,are you a 
+              | .
+              p
+                a.button.btn.btn-default(href='/driver') Driver
+                |             
+                a.button.btn.btn-default(href='/passenger') Passenger
+      script(src='bootstrap-3.3.4-dist/js/jquery-2.1.4.js')
+      // Include all compiled plugins (below), or include individual files as needed
+      script(src='bootstrap-3.3.4-dist/js/bootstrap.min.js')     
+      |       
+      |     
+      footer Contact us-9769941845
+      
